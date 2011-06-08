@@ -1,0 +1,13 @@
+h1. Navigation Module
+
+The navigation module allows you to easily define and use a navigation menu in your Play project.
+
+h2. Quick Start
+
+# Add the navigation module to your dependencies.yml file
+# Define a navigation structure in conf/navigation.yml, see "sample":sample
+# Add @With(MenuInjector.class) to your controllers
+# Display the menu in your template with #{navigation.default mainMenu /}
+
+h2. How it works
+

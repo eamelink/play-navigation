@@ -1,0 +1,11 @@
+require: 
+     - play
+     - navigation -> navigation
+ 
+repositories: 
+     - myRepo: 
+         type: local 
+         artifact: /home/eamelink/projecten/lunatech/[module] 
+         contains: 
+             - navigation
+

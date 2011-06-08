@@ -1,0 +1,57 @@
+MenuItem(main):
+  name: Main Menu
+
+MenuItem(home):
+  text: Home
+  action: Application.index
+  parent: main
+  
+MenuItem(articles):
+  parent: main
+  text: Articles
+  action: Articles.index
+  
+MenuItem(articleslist):
+  parent: articles
+  text: List of Articles
+  action: Articles.index
+  
+MenuItem(articlessearch):
+  parent: articles
+  text: Search Articles
+  action: Articles.search
+
+MenuItem(newestarticle):
+  parent: articles
+  text: Article of the Day
+  action: Articles.articleOfTheDay
+  label: aotd
+  params:
+    id: :id
+
+MenuItem(recipes):
+  parent: main
+  text: Recipes
+  action: Recipes.index
+
+MenuItem(pies):
+  parent: recipes
+  text: Pies
+  action: Recipes.pies
+
+MenuItem(fruitpies):
+  parent: pies
+  text: Fruit Pies
+  action: Recipes.fruitpies
+
+MenuItem(chocolatepies):
+  parent: pies
+  text: Chocolate Pies  
+  action: Recipes.chocolatepies
+
+MenuItem(admin):
+  parent: main
+  text: Admin
+  action: Articles.admin
+  labels:
+    - admin

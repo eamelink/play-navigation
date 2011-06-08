@@ -1,0 +1,14 @@
+h1. Sample navigation.yml
+
+bc. MenuItem(main):
+  name: Main Menu
+ 
+MenuItem(home):
+  text: Home
+  action: Application.index
+  parent: main
+  
+MenuItem(articles):
+  parent: main
+  text: Articles
+  action: Articles.index

@@ -1,0 +1,44 @@
+%{ 
+menuItem = _menuItem ?: _arg
+if (menuItem == null) {
+  throw new NullPointerException("The menu argument is null");
+}
+visibleChildren = menuItem.getVisibleChildren();
+
+if (_level == null) {
+  _level = 1
+}
+
+if (_showLevels == null) {
+  _showLevels = 99;
+}
+
+if (_expandLevels == null) {
+  _expandLevels = 99;
+} 
+
+}%
+
+#{if !visibleChildren.isEmpty() &&
+     _level <= _showLevels && 
+     (_level <= _expandLevels || menuItem.hasActiveDescendant()) }
+<ul${_ulClass == null ? '' : (' class="' + _ulClass + '"').raw()}>
+#{list items:visibleChildren, as:'child'}
+  %{
+    linkClasses = []
+    if(child.isActive()) { linkClasses.push("active"); }
+    if(child.hasActiveDescendant()) { linkClasses.push("activePath"); }
+    if(child.getProperty('external')) { linkClasses.push("external"); }
+  }%
+  <li>
+    #{if child.hasLink()}
+      <a href="${child.getLink()}" class="${linkClasses.join(' ')}">${child.getText()}</a>
+    #{/if}
+    #{else}
+      <span class="${linkClasses.join(' ')}">${child.getText()}</span>
+    #{/else}
+    #{navigation.default child, level:_level + 1, showLevels: _showLevels, expandLevels: _expandLevels /}
+  </li>
+#{/list}
+</ul>
+#{/if}

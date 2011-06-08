@@ -1,0 +1,4 @@
+self: play -> navigation 0.1
+
+require:
+    - play

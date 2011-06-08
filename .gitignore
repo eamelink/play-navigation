@@ -1,0 +1,16 @@
+.classpath
+.project
+.settings
+eclipse
+.livereload
+tmp
+.sass-cache
+.idea
+.pyc
+.iml
+javadoc
+logs
+cobertura.ser
+test-result
+db
+
