@@ -10,6 +10,11 @@ import org.apache.commons.collections.CollectionUtils;
 
 import play.mvc.Router;
 
+/**
+ * Wrapper for MenuItem and MenuContext
+ * 
+ * This class wraps a bare MenuItem and a MenuContext and has methods that are useful in your menu renderer
+ */
 public class ContextedMenuItem {
 	public MenuItem menuItem;
 	public MenuContext menuContext;

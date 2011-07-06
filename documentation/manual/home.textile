@@ -4,10 +4,55 @@ The navigation module allows you to easily define and use a navigation menu in y
 
 h2. Quick Start
 
-# Add the navigation module to your dependencies.yml file
-# Define a navigation structure in conf/navigation.yml, see "sample":sample
-# Add @With(MenuInjector.class) to your controllers
-# Display the menu in your template with #{navigation.default mainMenu /}
+# Add the navigation module to your @dependencies.yml@ file
+# Define a navigation structure in @conf/navigation.yml@, see "sample":sample
+# Add @ @With(MenuInjector.class)@ to your controllers
+# Display the menu in your template with @#{navigation.default mainMenu /}@
 
-h2. How it works
+h2. Less Quick Start
 
+h3. Introduction
+
+The navigation module allows you to define a navigation structure for your website, and show one or more menu's on your page, based on this structure. There are three staps that need to be taken to integrate a menu in your site. First, the navigation structure must be defined, second the navigation structure must be retrieved and context must be added and finally it must be rendered.
+
+The navigation module keeps your navigation structure in memory, so no database access is needed to show a menu, making it fast and simple.
+
+h3. Defining your navigation structure
+
+The navigation structure is defined in a file @navigation.yml@, that resides in your @conf@ directory. As you might have guessed, this is a YAML file. A menu structure is a tree: you have one root node, and each node can have zero or more children. A node in the navigation structure is a @MenuItem@. See "sample":sample for an example of a navigation structure.
+
+A MenuItem has the following properties:
+
+|Field|Type|Description|
+|parent|YAML Reference|Reference to the parent node|
+|text|String|The link text for the menu item|
+|action|String|The action this menu item links|
+|url|String|The url this menu item links, if action is not specified|
+|label|List<String>|A list of strings, you can hide or show menuitems based on these labels, for example 'admin'|
+|params|Map<String,String>|A map from strings to string, which will become the parameters for the action that is called|
+
+h3. Get menu and add context
+
+A menu can not be built from only the structure. The context in which it appears can change how the menu must be rendered. For example if you are viewing the _products_ page, the corresponding menu item shoud be highlighted as being the currently active menu item. Also, you might want to show only the submenus of the currently active menu.
+
+To get a menu, use the following code from a Controller: @ContextedMenuItem menuItem = Navigation.getMenu(name)@, where name is the name of the root element, which is 'main' in the sample @navigation.yml@. The root element itself will not be shown, but its children form the menu. So on a regular site, you could have a root menu item called _main_, and children like _home_, _products_, _cart_, _contact_, etc. Each of this children could have children of its own.
+
+You usually want the menu button that is currently active (e.g. the _products_ button when you are on the _products_ page) to be shown differently. In the navigation module, this is called _active_. If your menu is multiple levels deep, you might also want to treat the items higher in the hierarchy to show up differently. If the _garden products_ menu item is active, and it is a child of the _products_ menu item, you might want both of them to be highlighted. The navigation module also allows to to check for every menu item whether it has an active child. 
+
+Any menu item whose @action@ field is set to the action that is being invoked by play will be automatically set as being active. This works in the majority of cases, but sometimes you want more control. You could for example have a products search page, with both a @Products.showSearchForm@ and a @Products.showSearchResults@ action, with the _search_ menu item action set to @Products.showSearchForm@. Now, if your search results are displayed by the @Products.showSearchResults@ action, the search menu item would not be marked active, since the action doesn't match the invoked action. To remedy this, you can set an @ @ActiveNavigation("Products.showSearchForm")@ annotation on the @Products.showSearchResults@ action. This will cause the _search_ menu item to be marked as active.
+
+If you want to programmatically set the active action you can use the methods on the @MenuContext@ available from @ContextedMenuItem.menuContext@. 
+
+Finally, we must add the menu to the @renderArgs@. This can be done manually, with @renderArgs.put("mainMenu", Navigation.getMenu("main"))@, but you can also use the @MenuInjector@ controller, which has an @ @Before@ annotation. To use this method, add @ @With(MenuInjector.class)@ to your controller. The @MenuInjector@ can be configured through the @application.conf@ file; you can set which menus it must inject in your renderArgs automatically with the @navigation.defaultMenus@ property.
+
+h3. Rendering
+
+In your view, you now have a @mainMenu@ variable. You can render a menu using @#{navigation.default mainMenu /}@
+
+The default renderer renders your menu as nested &lt;ul&gt;'s and &lt;li&gt;'s. It has some options:
+
+||Option name||Default||Explanation||
+|showLevels|99|The maximum number of levels the menu must show. You can use this to only show the top level entries for example, by setting this to 1|
+|expandLevels|99|Which levels must always be expanded. Levels below this will only be expanded when their parent item is active|
+
+You can easily change the way of rendering by copying the default tag into your project and modifying it to your liking.

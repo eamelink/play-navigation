@@ -1,35 +1,25 @@
 package navigation;
 
-import java.io.InputStream;
-import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import navigation.Navigation.NavigationYamlFile;
-
-import org.yaml.snakeyaml.JavaBeanLoader;
 import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.scanner.ScannerException;
 
-import play.Logger;
-import play.Play;
-import play.PlayPlugin;
-import play.data.binding.Binder;
-import play.db.Model;
-import play.exceptions.YAMLException;
 import play.mvc.Http.Request;
-import play.mvc.Scope.Params;
-import play.test.Fixtures;
 import play.vfs.VirtualFile;
 
+/**
+ * Keeper of the bare MenuItems 
+ *
+ * This class holds a static reference to all the MenuItems. You can retrive a Menu from this class, 
+ * which will be automatically wrapped in a ContextedMenuItem, ready to be inserted into your view.
+ */
 public class Navigation {
 
 	private static Map<String, MenuItem> namedMenuItems;

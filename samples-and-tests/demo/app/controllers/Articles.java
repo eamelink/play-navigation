@@ -20,5 +20,6 @@ public class Articles extends Controller {
 	@ActiveNavigation("Articles.search")
 	public static void searchResults() { render(); }
 	
+	public static void articleOfTheDay(Long id){ render(); }
 	public static void show() { render(); }
 }

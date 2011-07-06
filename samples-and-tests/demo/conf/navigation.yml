@@ -25,7 +25,6 @@ MenuItem(newestarticle):
   parent: articles
   text: Article of the Day
   action: Articles.articleOfTheDay
-  label: aotd
   params:
     id: :id
 

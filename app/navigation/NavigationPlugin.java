@@ -5,10 +5,13 @@ import java.util.List;
 
 import play.Logger;
 import play.Play;
-import play.PlayPlugin;
 import play.Play.Mode;
+import play.PlayPlugin;
 import play.vfs.VirtualFile;
 
+/**
+ * Initialize and reload the navigation structure.
+ */
 public class NavigationPlugin extends PlayPlugin {
 	
 	// Timestamp the navigation was last loaded
