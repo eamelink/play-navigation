@@ -79,5 +79,6 @@ h3. Using params
 See next section, using sample app. This will be documented properly in the future.
 
 h3. Sample app
+
 To run the sample application _demo_, enter the samples-and-tests/demo directory, and run @play dependencies@ (this only works with Play 1.2 and up, and then @play run@. Also check out the source of this demo, as it uses some undocumented features like variable substitution.
 
