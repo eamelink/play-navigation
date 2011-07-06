@@ -7,8 +7,27 @@ MenuItem(home):
   text: Home
   action: Application.index
   parent: main
+  properties:
+    extraClass: homeLink
   
 MenuItem(articles):
   parent: main
   text: Articles
   action: Articles.index
+
+MenuItem(popular):
+  parent: articles
+  text: Popular
+  action: Articles.popular
+
+MenuItem(archive):
+  parent: archive
+  text: Archive
+  action: Articles.archive
+  
+MenuItem(admin):
+  parent: main
+  text: Admin Area
+  action: Admin.index
+  labels: 
+    - admin

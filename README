@@ -1,1 +1,5 @@
+h1. Play Framework Navigation Module
+
+This module allows you to define a navigation structure, and render a menu in your Play web application.
+
 The documentation is in /documentation/manual/home.textile

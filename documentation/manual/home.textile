@@ -30,6 +30,7 @@ A MenuItem has the following properties:
 |url|String|The url this menu item links, if action is not specified|
 |label|List<String>|A list of strings, you can hide or show menuitems based on these labels, for example 'admin'|
 |params|Map<String,String>|A map from strings to string, which will become the parameters for the action that is called|
+|properties|Map<String,Object>|A map of custom properties you can add to your menuItem. An example is to add an extra class to a certain menu item, or specify a background image. You can retrieve these properties in your renderer.|
 
 h3. Get menu and add context
 
@@ -56,3 +57,27 @@ The default renderer renders your menu as nested &lt;ul&gt;'s and &lt;li&gt;'s. 
 |expandLevels|99|Which levels must always be expanded. Levels below this will only be expanded when their parent item is active|
 
 You can easily change the way of rendering by copying the default tag into your project and modifying it to your liking.
+
+h2. More
+
+h3. Accessing the MenuContext
+
+If you use the MenuInjector, the MenuContext is hidden from you. You can still retrieve it in your actions:
+
+bc. MenuContext context = ((ContextedMenuItem)renderArgs.get("mainMenu")).menuContext;
+
+Alternatively, you can decide not to use the MenuInjector, and inject the menu yourself. It is a simple oneliner, see the MenuInjector source for details. 
+
+Getting the MenuContext is useful if you want to use labels, programmatically set the active action, or if you want to set params.
+
+h3. Using labels
+
+If you add labels to a @MenuItem@ in your @navigation.yml@ file, the @MenuItem@ will only be visible if you add at least one of those labels to the @MenuContext@, with @addActiveLabel(String label)@. You could add an 'admin' label for example, and only activate this label for users with admin permissions in an @ @Before@ interceptor.
+
+h3. Using params
+
+See next section, using sample app. This will be documented properly in the future.
+
+h3. Sample app
+To run the sample application _demo_, enter the samples-and-tests/demo directory, and run @play dependencies@ (this only works with Play 1.2 and up, and then @play run@. Also check out the source of this demo, as it uses some undocumented features like variable substitution.
+

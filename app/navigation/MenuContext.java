@@ -37,6 +37,15 @@ public class MenuContext {
 	    addActiveAction(action);
 	}
 	
+    public void setActiveActions(Collection<String> actions) {
+        activeActions.clear();
+        activeActions.addAll(actions);
+    }
+    
+    public boolean hasActiveAction(String action) {
+        return activeActions.contains(action);
+    }
+	
 	protected void addActiveAnnotatedActions(Request request) {
 	    if(request.invokedMethod == null) return;
 	    ActiveNavigation single = request.invokedMethod.getAnnotation(ActiveNavigation.class);
@@ -51,17 +60,18 @@ public class MenuContext {
 	    }
 	}
 	
-	protected void addActiveLabel(String label) {
+	public void addActiveLabel(String label) {
 		activeLabels.add(label);
 	}
 	
-	protected void setActiveActions(Collection<String> actions) {
-		activeActions.clear();
-		activeActions.addAll(actions);
+	public void setActiveLabel(String label) {
+	    activeLabels.clear();
+	    addActiveLabel(label);
 	}
 	
-	public boolean hasActiveAction(String action) {
-		return activeActions.contains(action);
+	public void setActiveLabels(Collection<String> labels) {
+	    activeLabels.clear();
+	    activeLabels.addAll(labels);
 	}
 	
 }
